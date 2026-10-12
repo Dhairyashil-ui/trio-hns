@@ -31,7 +31,7 @@ export default function Testimonials() {
       <div className="container">
 
         {/* Clean Header: Doctor Testimonials (No Eyebrow, No Subtitle, Exact Google Standard) */}
-        <div className="google-modules-header text-center mb-4">
+        <div className="google-modules-header text-center">
           <h2 className="section-title-google">
             Doctor <span className="text-gradient-gemini">Testimonials</span>
           </h2>

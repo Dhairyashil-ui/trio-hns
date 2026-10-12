@@ -6,7 +6,8 @@ export default function Contact() {
     name: '',
     email: '',
     phone: '',
-    subject: '',
+    hospitalName: '',
+    subject: 'Complete Hospital Suite (All 18 Modules)',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
@@ -21,168 +22,302 @@ export default function Contact() {
       setSubmitted(true);
       try {
         confetti({
-          particleCount: 50,
-          spread: 60,
-          origin: { y: 0.7 }
+          particleCount: 65,
+          spread: 70,
+          origin: { y: 0.65 }
         });
       } catch (err) {}
     }, 500);
   };
 
+  const handleReset = () => {
+    setSubmitted(false);
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      hospitalName: '',
+      subject: 'Complete Hospital Suite (All 18 Modules)',
+      message: ''
+    });
+  };
+
   return (
-    <section id="contact" className="section-padding section-bg-subtle">
+    <section id="contact" className="contact-cinematic-section">
       <div className="container">
 
-        {/* Section Header */}
-        <div className="section-header-google">
-          <div className="section-pill-badge">
-            <i className="bi bi-geo-alt-fill"></i>
-            <span>Headquarters</span>
-          </div>
+        {/* Clean Header: Get in Touch (Google Style, No Eyebrow, No Subheading) */}
+        <div className="google-modules-header text-center">
           <h2 className="section-title-google">
             Get in <span className="text-gradient-gemini">Touch</span>
           </h2>
-          <p className="section-desc-google">
-            Connect with our healthcare technology specialists to discuss your hospital requirements.
-          </p>
         </div>
 
-        <div className="row g-4 justify-content-center">
-          
-          {/* Left Cards */}
-          <div className="col-lg-4">
-            <div className="d-flex flex-column gap-3">
-              
-              <div className="bento-box p-4">
-                <span className="bento-tag">Corporate Office</span>
-                <h5 className="fs-6 fw-bold mb-1">Pune Headquarters</h5>
-                <p className="text-secondary fs-7 mb-0">
-                  Dhruta Complex, Office 104 & 105, Narayan Peth, Pune, Maharashtra.
-                </p>
-              </div>
+        {/* Executive Contact Console Stage Card */}
+        <div className="contact-stage-card">
+          <div className="contact-stage-grid">
 
-              <div className="bento-box p-4">
-                <span className="bento-tag">Electronic Mail</span>
-                <h5 className="fs-6 fw-bold mb-1">Direct Inquiries</h5>
-                <p className="text-secondary fs-7 mb-0">
-                  <a href="mailto:info@triocorporation.in">info@triocorporation.in</a>
-                </p>
-              </div>
+            {/* Left Column: Headquarters & Rapid Support Hub */}
+            <div className="contact-info-panel">
+              <div className="contact-info-inner">
 
-              <div className="bento-box p-4">
-                <span className="bento-tag">Telephony</span>
-                <h5 className="fs-6 fw-bold mb-1">Direct Helpline</h5>
-                <p className="text-secondary fs-7 mb-0">
-                  <a href="tel:+919021023456">+91 9021 023 456</a>
-                </p>
-              </div>
+                {/* Status Indicator */}
+                <div className="contact-status-badge">
+                  <span className="contact-status-beacon"></span>
+                  <span>Pune HQ &bull; Active Deployment Support</span>
+                </div>
 
+                <div className="contact-info-headline-wrap">
+                  <h3 className="contact-info-title">Hospital Technology Division</h3>
+                  <p className="contact-info-lead">
+                    Connect directly with our healthcare solution architects, clinical workflow consultants, and enterprise deployment leads.
+                  </p>
+                </div>
+
+                {/* 3 Executive Contact Hub Cards */}
+                <div className="contact-hub-cards">
+
+                  {/* 1. Corporate Headquarters */}
+                  <div className="contact-hub-card">
+                    <div className="contact-hub-icon-box">
+                      <i className="bi bi-geo-alt-fill"></i>
+                    </div>
+                    <div className="contact-hub-content">
+                      <div className="contact-hub-label">Corporate Headquarters</div>
+                      <div className="contact-hub-value">
+                        Dhruta Complex, Office 104 &amp; 105, Narayan Peth, Pune, Maharashtra - 411030
+                      </div>
+                      <a
+                        href="https://maps.google.com/?q=Dhruta+Complex+Narayan+Peth+Pune"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="contact-hub-action-link"
+                      >
+                        <span>Open Location Map</span>
+                        <i className="bi bi-arrow-up-right ms-1"></i>
+                      </a>
+                    </div>
+                  </div>
+
+                  {/* 2. Direct Helpline */}
+                  <div className="contact-hub-card">
+                    <div className="contact-hub-icon-box">
+                      <i className="bi bi-telephone-fill"></i>
+                    </div>
+                    <div className="contact-hub-content">
+                      <div className="contact-hub-label">Direct Hospital Helpline</div>
+                      <div className="contact-hub-value">
+                        <a href="tel:+919021023456" className="contact-phone-link">
+                          +91 9021 023 456
+                        </a>
+                      </div>
+                      <span className="contact-hub-subtext">
+                        24x7 Emergency Line &bull; Mon - Sat 9:00 AM - 8:00 PM IST
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* 3. Electronic Mail */}
+                  <div className="contact-hub-card">
+                    <div className="contact-hub-icon-box">
+                      <i className="bi bi-envelope-fill"></i>
+                    </div>
+                    <div className="contact-hub-content">
+                      <div className="contact-hub-label">Electronic Mail &amp; RFPs</div>
+                      <div className="contact-hub-value">
+                        <a href="mailto:info@triocorporation.in" className="contact-email-link">
+                          info@triocorporation.in
+                        </a>
+                      </div>
+                      <span className="contact-hub-subtext">
+                        Verified reply SLA: Under 2 business hours
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+
+                {/* Compliance & Security Micro Badges */}
+                <div className="contact-trust-pill-strip">
+                  <div className="contact-trust-item">
+                    <i className="bi bi-shield-check text-primary"></i>
+                    <span>NABH Ready</span>
+                  </div>
+                  <div className="contact-trust-sep">&bull;</div>
+                  <div className="contact-trust-item">
+                    <i className="bi bi-lock-fill text-success"></i>
+                    <span>ISO 27001 Certified</span>
+                  </div>
+                  <div className="contact-trust-sep">&bull;</div>
+                  <div className="contact-trust-item">
+                    <i className="bi bi-activity text-info"></i>
+                    <span>ABDM M1-M3</span>
+                  </div>
+                </div>
+
+              </div>
             </div>
-          </div>
 
-          {/* Right Message Form */}
-          <div className="col-lg-7">
-            <div className="bento-box h-100 p-4 p-md-5">
-              
+            {/* Right Column: Executive Message Form */}
+            <div className="contact-form-panel">
               {submitted ? (
-                <div className="text-center py-5">
-                  <i className="bi bi-check-circle-fill text-success fs-1 mb-2 d-block"></i>
-                  <h4 className="fs-5 fw-bold text-success mb-2">Message Sent Successfully!</h4>
-                  <p className="text-secondary fs-7">
-                    Thank you, <strong>{formData.name}</strong>. Our team will get back to you shortly.
+                <div className="contact-success-state">
+                  <div className="contact-success-badge">
+                    <i className="bi bi-check-lg"></i>
+                  </div>
+                  <h4 className="contact-success-title">Message Transmitted Successfully</h4>
+                  <p className="contact-success-desc">
+                    Thank you, <strong>{formData.name || 'Doctor'}</strong>. Your consultation inquiry has been logged with our Pune headquarters team. An enterprise medical tech consultant will connect with you via email or phone shortly.
                   </p>
                   <button
                     type="button"
-                    className="btn btn-outline-primary rounded-pill px-4 fs-7 mt-3"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-                    }}
+                    className="contact-reset-btn"
+                    onClick={handleReset}
                   >
+                    <i className="bi bi-arrow-repeat me-2"></i>
                     Send Another Message
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit}>
-                  <h4 className="fs-6 fw-bold text-main mb-3">Send a Message</h4>
-                  <div className="row g-3">
-                    
-                    <div className="col-md-6">
-                      <label className="material-label">Full Name *</label>
-                      <input
-                        type="text"
-                        className="material-input"
-                        placeholder="Dr. / Mr. Name"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      />
+                <form onSubmit={handleSubmit} className="contact-executive-form">
+                  <div className="contact-form-intro">
+                    <h4 className="contact-form-title">Send a Direct Message</h4>
+                    <p className="contact-form-desc">
+                      Request custom module demos, price quotes, or discuss on-premises/cloud migration.
+                    </p>
+                  </div>
+
+                  <div className="contact-form-grid">
+                    {/* Full Name */}
+                    <div className="contact-input-field">
+                      <label className="contact-field-label">Full Name *</label>
+                      <div className="contact-input-wrapper">
+                        <i className="bi bi-person contact-input-icon"></i>
+                        <input
+                          type="text"
+                          className="contact-text-input"
+                          placeholder="Dr. / Mr. Name"
+                          required
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        />
+                      </div>
                     </div>
 
-                    <div className="col-md-6">
-                      <label className="material-label">Email Address *</label>
-                      <input
-                        type="email"
-                        className="material-input"
-                        placeholder="doctor@hospital.org"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      />
+                    {/* Work Email */}
+                    <div className="contact-input-field">
+                      <label className="contact-field-label">Official Email *</label>
+                      <div className="contact-input-wrapper">
+                        <i className="bi bi-envelope contact-input-icon"></i>
+                        <input
+                          type="email"
+                          className="contact-text-input"
+                          placeholder="director@hospital.org"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                      </div>
                     </div>
 
-                    <div className="col-md-6">
-                      <label className="material-label">Phone Number</label>
-                      <input
-                        type="tel"
-                        className="material-input"
-                        placeholder="+91 98765 43210"
-                        value={formData.phone}
-                        onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      />
+                    {/* Phone Number */}
+                    <div className="contact-input-field">
+                      <label className="contact-field-label">Phone Number *</label>
+                      <div className="contact-input-wrapper">
+                        <i className="bi bi-telephone contact-input-icon"></i>
+                        <input
+                          type="tel"
+                          className="contact-text-input"
+                          placeholder="+91 98765 43210"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                        />
+                      </div>
                     </div>
 
-                    <div className="col-md-6">
-                      <label className="material-label">Subject *</label>
-                      <input
-                        type="text"
-                        className="material-input"
-                        placeholder="Hospital Software Quote"
-                        required
-                        value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      />
+                    {/* Subject / Module of Interest */}
+                    <div className="contact-input-field">
+                      <label className="contact-field-label">Inquiry Subject *</label>
+                      <div className="contact-input-wrapper">
+                        <i className="bi bi-grid-3x3-gap contact-input-icon"></i>
+                        <select
+                          className="contact-text-input contact-select"
+                          value={formData.subject}
+                          onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                        >
+                          <option value="Complete Hospital Suite (All 18 Modules)">Complete Hospital Suite (All 18 Modules)</option>
+                          <option value="NABH / EMR Digitalization">NABH / EMR Digitalization</option>
+                          <option value="OPD, IPD & OT Scheduling Suite">OPD, IPD &amp; OT Scheduling Suite</option>
+                          <option value="Pharmacy, Inventory & Billing Integration">Pharmacy, Inventory &amp; Billing Integration</option>
+                          <option value="PACS / DICOM Imaging & Lab Diagnostics">PACS / DICOM Imaging &amp; Lab Diagnostics</option>
+                          <option value="Custom Pricing, Licensing & Cloud SLA">Custom Pricing, Licensing &amp; Cloud SLA</option>
+                          <option value="Technical Support & Integration">Technical Support &amp; Integration</option>
+                        </select>
+                      </div>
                     </div>
 
-                    <div className="col-12">
-                      <label className="material-label">Message *</label>
-                      <textarea
-                        className="material-input"
-                        rows="3"
-                        placeholder="Tell us about your hospital setup..."
-                        required
-                        value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      ></textarea>
+                    {/* Hospital Name (Full width) */}
+                    <div className="contact-input-field contact-full-col">
+                      <label className="contact-field-label">Hospital or Clinic Name</label>
+                      <div className="contact-input-wrapper">
+                        <i className="bi bi-building contact-input-icon"></i>
+                        <input
+                          type="text"
+                          className="contact-text-input"
+                          placeholder="e.g. Apollo Multi-Speciality Hospital, Pune"
+                          value={formData.hospitalName}
+                          onChange={(e) => setFormData({ ...formData, hospitalName: e.target.value })}
+                        />
+                      </div>
                     </div>
 
-                    <div className="col-12 text-end mt-3">
-                      <button
-                        type="submit"
-                        className="btn-google-pill"
-                        disabled={loading}
-                      >
-                        {loading ? 'Sending...' : 'Send Message'}
-                      </button>
+                    {/* Message Area (Full width) */}
+                    <div className="contact-input-field contact-full-col">
+                      <label className="contact-field-label">Requirements or Specific Notes *</label>
+                      <div className="contact-input-wrapper contact-textarea-wrapper">
+                        <textarea
+                          className="contact-text-input contact-textarea"
+                          rows="3"
+                          placeholder="Briefly describe your hospital bed capacity, existing software, or implementation timeline..."
+                          required
+                          value={formData.message}
+                          onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        ></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Form Footer Action */}
+                  <div className="contact-form-actions">
+                    <div className="contact-form-reassurance">
+                      <i className="bi bi-shield-lock-fill text-secondary me-1"></i>
+                      <span>Clinical data confidentiality guaranteed</span>
                     </div>
 
+                    <button
+                      type="submit"
+                      className="contact-submit-btn"
+                      disabled={loading}
+                    >
+                      {loading ? (
+                        <>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                          <span>Transmitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Send Message</span>
+                          <i className="bi bi-arrow-right ms-2"></i>
+                        </>
+                      )}
+                    </button>
                   </div>
                 </form>
               )}
-
             </div>
-          </div>
 
+          </div>
         </div>
 
       </div>

@@ -41,7 +41,7 @@ export default function Faq() {
       <div className="container">
 
         {/* Clean Header: Frequently Asked Questions (No Eyebrow, No Subheading, Exact Google Standard) */}
-        <div className="google-modules-header text-center mb-4">
+        <div className="google-modules-header text-center">
           <h2 className="section-title-google">
             Frequently Asked <span className="text-gradient-gemini">Questions</span>
           </h2>

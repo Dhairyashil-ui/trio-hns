@@ -34,7 +34,7 @@ export default function Workflows({ onOpenModal }) {
       <div className="container">
 
         {/* Clean Header: Exact Same Size, No Subtitle, No Eyebrow Pill */}
-        <div className="google-modules-header text-center mb-4">
+        <div className="google-modules-header text-center">
           <h2 className="section-title-google">
             HIMS <span className="text-gradient-gemini">Work Flows</span>
           </h2>

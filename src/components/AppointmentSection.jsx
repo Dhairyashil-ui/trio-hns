@@ -49,7 +49,7 @@ export default function AppointmentSection() {
       <div className="container">
 
         {/* Clean Header: No Eyebrow, No Subheading, Same Exact Google Title */}
-        <div className="google-modules-header text-center mb-4">
+        <div className="google-modules-header text-center">
           <h2 className="section-title-google">
             Book A <span className="text-gradient-gemini">Free Demo</span>
           </h2>
