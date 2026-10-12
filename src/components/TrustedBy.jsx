@@ -103,13 +103,13 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
 }
 
 /**
- * Creates high-resolution 2D CanvasTexture representing a translucent glass card
- * with genuine company logo, subtle borders, specular sheen, and typography.
+ * Creates ultra-crisp high-resolution 2D CanvasTexture representing a translucent glass card
+ * with genuine company logo, subtle specular sheen, delicate borders, and crisp typography.
  */
 function createCardTexture(partner) {
   const canvas = document.createElement('canvas');
-  canvas.width = 560;
-  canvas.height = 330;
+  canvas.width = 800;
+  canvas.height = 480;
   const ctx = canvas.getContext('2d');
 
   const texture = new THREE.CanvasTexture(canvas);
@@ -122,41 +122,56 @@ function createCardTexture(partner) {
   const renderCard = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    // 1. Soft Ambient Floating Shadow Under Glass Card
+    // 1. Soft Ambient Floating Shadow Under Glass Card (Realistic depth, subtle elevation)
     ctx.save();
     ctx.shadowColor = 'rgba(15, 23, 42, 0.08)';
-    ctx.shadowBlur = 24;
-    ctx.shadowOffsetY = 10;
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
-    drawRoundedRect(ctx, 10, 10, 540, 310, 26);
+    ctx.shadowBlur = 28;
+    ctx.shadowOffsetY = 12;
+    ctx.fillStyle = '#ffffff';
+    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
     ctx.fill();
     ctx.restore();
 
-    // 2. Translucent Crystalline Liquid-Glass Fill
-    const bgGrad = ctx.createLinearGradient(0, 0, 560, 330);
+    // 2. Translucent Crystalline Liquid-Glass Card Fill (Crisp cool-white)
+    const bgGrad = ctx.createLinearGradient(16, 16, 784, 464);
     bgGrad.addColorStop(0, 'rgba(255, 255, 255, 0.98)');
-    bgGrad.addColorStop(0.4, 'rgba(248, 250, 255, 0.92)');
-    bgGrad.addColorStop(1, 'rgba(240, 246, 255, 0.95)');
+    bgGrad.addColorStop(0.45, 'rgba(252, 254, 255, 0.95)');
+    bgGrad.addColorStop(1, 'rgba(246, 250, 255, 0.97)');
     ctx.fillStyle = bgGrad;
-    drawRoundedRect(ctx, 10, 10, 540, 310, 26);
+    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
     ctx.fill();
 
-    // 3. Clean Subtle Crystalline Border (Uniform & Seamless)
-    const borderGrad = ctx.createLinearGradient(0, 10, 560, 320);
-    borderGrad.addColorStop(0, 'rgba(226, 232, 240, 0.85)');
-    borderGrad.addColorStop(1, 'rgba(203, 213, 225, 0.75)');
+    // 3. Subtle Specular Glass Sheen Reflection (Top highlight without excessive glow)
+    ctx.save();
+    const sheenGrad = ctx.createLinearGradient(16, 16, 16, 220);
+    sheenGrad.addColorStop(0, 'rgba(255, 255, 255, 0.65)');
+    sheenGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.15)');
+    sheenGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    ctx.fillStyle = sheenGrad;
+    drawRoundedRect(ctx, 16, 16, 768, 200, 30);
+    ctx.fill();
+    ctx.restore();
+
+    // 4. Delicate Crisp Glass Border (Refined edge highlights)
+    const borderGrad = ctx.createLinearGradient(16, 16, 784, 464);
+    borderGrad.addColorStop(0, 'rgba(226, 232, 240, 0.95)');
+    borderGrad.addColorStop(0.5, 'rgba(241, 245, 249, 0.85)');
+    borderGrad.addColorStop(1, 'rgba(203, 213, 225, 0.9)');
     ctx.strokeStyle = borderGrad;
-    ctx.lineWidth = 1.2;
-    drawRoundedRect(ctx, 10, 10, 540, 310, 26);
+    ctx.lineWidth = 1.4;
+    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
     ctx.stroke();
 
-    // 6. Logo Rendering Area (Preserving Proportions & High Contrast)
-    const logoBoxX = 70;
-    const logoBoxY = 32;
-    const logoBoxW = 420;
-    const logoBoxH = 150;
+    // 5. Logo Rendering Area (Centered, Sharp, True Vibrant Colors, Correctly Proportioned)
+    const logoBoxX = 110;
+    const logoBoxY = 46;
+    const logoBoxW = 580;
+    const logoBoxH = 220;
 
     if (loadedImg && loadedImg.complete && loadedImg.naturalWidth > 0) {
+      ctx.save();
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
       const imgW = loadedImg.naturalWidth;
       const imgH = loadedImg.naturalHeight;
       const scale = Math.min(logoBoxW / imgW, logoBoxH / imgH, 1.35);
@@ -165,50 +180,49 @@ function createCardTexture(partner) {
       const drawX = logoBoxX + (logoBoxW - drawW) / 2;
       const drawY = logoBoxY + (logoBoxH - drawH) / 2;
 
-      ctx.save();
       ctx.drawImage(loadedImg, drawX, drawY, drawW, drawH);
       ctx.restore();
     } else {
-      // Elegant healthcare vector badge emblem
+      // Elegant healthcare vector badge emblem (for partners without image file)
       ctx.save();
-      const cx = 280;
-      const cy = 105;
+      const cx = 400;
+      const cy = 152;
 
       // Outer glowing emblem ring
       ctx.strokeStyle = `${partner.accent}44`;
-      ctx.lineWidth = 2.5;
+      ctx.lineWidth = 3.5;
       ctx.beginPath();
-      ctx.arc(cx, cy, 38, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 54, 0, Math.PI * 2);
       ctx.stroke();
 
       // Inner soft emblem background
-      ctx.fillStyle = `${partner.accent}12`;
+      ctx.fillStyle = `${partner.accent}14`;
       ctx.beginPath();
-      ctx.arc(cx, cy, 37, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 53, 0, Math.PI * 2);
       ctx.fill();
 
       // Stylized Medical Cross
       ctx.fillStyle = partner.accent;
-      ctx.shadowColor = partner.accent;
-      ctx.shadowBlur = 10;
-      const barW = 12;
-      const barH = 40;
+      ctx.shadowColor = `${partner.accent}40`;
+      ctx.shadowBlur = 12;
+      const barW = 16;
+      const barH = 56;
       ctx.fillRect(cx - barW / 2, cy - barH / 2, barW, barH);
       ctx.fillRect(cx - barH / 2, cy - barW / 2, barH, barW);
       ctx.restore();
     }
 
-    // 7. Typography: Hospital / Partner Name (Crisp Slate Charcoal)
-    ctx.font = '700 23.5px "Google Sans", "Plus Jakarta Sans", system-ui, sans-serif';
+    // 6. Typography: Hospital / Partner Name (Crisp Slate Charcoal)
+    ctx.font = '700 32px "Google Sans", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif';
     ctx.fillStyle = '#0f172a';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(partner.name, 280, 236);
+    ctx.fillText(partner.name, 400, 342);
 
-    // 8. Typography: Subtitle / Hospital Classification
-    ctx.font = '500 15px "Google Sans", "Plus Jakarta Sans", system-ui, sans-serif';
+    // 7. Typography: Subtitle / Hospital Classification
+    ctx.font = '500 20px "Google Sans", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif';
     ctx.fillStyle = '#64748b';
-    ctx.fillText(partner.type, 280, 270);
+    ctx.fillText(partner.type, 400, 392);
   };
 
   renderCard();
@@ -279,7 +293,7 @@ export default function TrustedBy() {
 
     const radius = 3.65;
     const count = PARTNERS.length;
-    const cardGeometry = new THREE.PlaneGeometry(1.95, 1.18);
+    const cardGeometry = new THREE.PlaneGeometry(2.0, 1.2);
     const texturesToDispose = [];
     const materialsToDispose = [];
     const meshes = [];
@@ -308,7 +322,7 @@ export default function TrustedBy() {
 
     // Rotation & Drag Physics State
     let rotationY = 0;
-    const baseSpeed = 0.0032;
+    const baseSpeed = 0.0024;
     let dragVelocity = 0;
     let isDragging = false;
     let pointerStartX = 0;
@@ -430,19 +444,28 @@ export default function TrustedBy() {
       const time = performance.now() * 0.001;
       meshes.forEach((mesh, idx) => {
         // Subtle weightless organic floating wave
-        mesh.position.y = Math.sin(time * 1.5 + idx * 0.52) * 0.07;
+        mesh.position.y = Math.sin(time * 1.4 + idx * 0.52) * 0.045;
 
         mesh.getWorldPosition(worldPos);
         // Normalized depth from camera (-radius to +radius)
         const depthFactor = (worldPos.z - (-radius)) / (2 * radius);
         
-        // Opacity curve: 1.0 at front, smoothly fades out towards back
-        const opacity = Math.min(1, Math.max(0, (depthFactor - 0.1) / 0.82));
+        // Center Card Prominence (smooth 1.14x scaling at front center)
+        const frontness = Math.max(0, worldPos.z / radius);
+        const centerProminence = Math.pow(frontness, 2.8);
+        const cardScale = 1.0 + 0.14 * centerProminence;
+        mesh.scale.set(cardScale, cardScale, 1);
+
+        // Crisp, clearly visible cards: front and sides stay fully opaque (1.0).
+        // Only cards cycling through the deep background fade out gently.
+        let opacity = 1.0;
+        if (depthFactor < 0.32) {
+          opacity = Math.max(0, depthFactor / 0.32);
+        }
         mesh.material.opacity = opacity;
 
-        // Front cards crisp, rear cards softly blend with depth
-        const tone = 0.9 + 0.1 * depthFactor;
-        mesh.material.color.setRGB(tone, tone, tone);
+        // True vibrant original hospital colors (no washed-out graying or tone dimming)
+        mesh.material.color.setRGB(1, 1, 1);
       });
 
       renderer.render(scene, camera);
@@ -569,7 +592,7 @@ export default function TrustedBy() {
           >
             <h2 className="section-title-google trusted-corner-title">
               <span className="kinetic-word">TRUSTED</span>{' '}
-              <span className="text-gradient-gemini kinetic-word">BY</span>
+              <span className="trusted-by-accent kinetic-word">BY</span>
             </h2>
           </div>
 
