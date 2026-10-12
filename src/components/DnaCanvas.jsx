@@ -48,11 +48,11 @@ export default function DnaCanvas({ scrolled }) {
 
     // UNIFORM PALETTES: Rich vibrant tones designed for soft silver-white contrast
     const PALETTES = [
-      new THREE.Color('#1a73e8'), // 0: INITIAL: Google Medical Blue / Sapphire
-      new THREE.Color('#7c3aed'), // 1: Pure Electric Violet / Neon Purple
-      new THREE.Color('#059669'), // 2: Pure Bio-Emerald Mint
-      new THREE.Color('#d97706'), // 3: Pure Radiant Amber Gold
-      new THREE.Color('#e11d48'), // 4: Pure Crimson Rose
+      new THREE.Color('#ef4444'), // 0: INITIAL: Pure Biomedical Crimson Red
+      new THREE.Color('#1a73e8'), // 1: Google Medical Blue / Sapphire
+      new THREE.Color('#7c3aed'), // 2: Pure Electric Violet / Neon Purple
+      new THREE.Color('#059669'), // 3: Pure Bio-Emerald Mint
+      new THREE.Color('#d97706'), // 4: Pure Radiant Amber Gold
       new THREE.Color('#0284c7'), // 5: Multi-Color Rainbow Hologram Mode
     ];
 
