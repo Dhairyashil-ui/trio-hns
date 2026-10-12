@@ -4230,11 +4230,11 @@ a:hover {
 .trusted-by-cinematic-section {
   position: relative;
   background: #ffffff;
-  padding: 38px 0 32px;
+  padding: 44px 0 40px;
   overflow: hidden;
   color: #0f172a;
-  border-top: 1.5px solid #e2e8f0;
-  border-bottom: 1.5px solid #e2e8f0;
+  border-top: 1px solid #edf2f7;
+  border-bottom: 1px solid #edf2f7;
 }
 
 /* Container matching mini-screen left-right size (1140px) */
@@ -4254,7 +4254,7 @@ a:hover {
 /* LEFT: TRUSTED BY heading — parallel to rotating box on the left */
 .trusted-corner-heading {
   position: absolute;
-  top: calc(50% - 38px);
+  top: calc(50% - 28px);
   left: 16px;
   z-index: 10;
   transform: translateX(-120px);
@@ -4276,15 +4276,24 @@ a:hover {
 
 .trusted-corner-title {
   font-family: 'Google Sans', var(--font-heading), 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-  font-size: clamp(30px, 3.2vw, 48px);
+  font-size: clamp(32px, 3.5vw, 48px);
   font-weight: 850;
   color: #0f172a;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1.08;
   text-align: left;
   white-space: nowrap;
   position: relative;
+}
+
+/* Restrained, modern healthcare blue-to-violet accent on BY */
+.trusted-by-accent {
+  background: linear-gradient(135deg, #1a73e8 0%, #4f46e5 50%, #7c3aed 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  font-weight: 850;
 }
 
 .kinetic-word {
@@ -4293,7 +4302,7 @@ a:hover {
 }
 
 .trusted-corner-heading:hover .kinetic-word {
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
 /* 2. Parallel 3D Rotating Boxes (Spring-Bouncing Entrance) */
@@ -4308,8 +4317,8 @@ a:hover {
   opacity: 0;
   transform: scale(0.4) translateY(60px);
   pointer-events: none;
-  border-radius: 20px;
-  background: linear-gradient(135deg, rgba(248, 250, 255, 0.6) 0%, rgba(255, 255, 255, 0.9) 100%);
+  border-radius: 24px;
+  background: radial-gradient(ellipse at 65% 50%, rgba(243, 247, 254, 0.65) 0%, rgba(255, 255, 255, 0) 72%);
 }
 
 .trusted-3d-stage.trusted-stage-parallel.boxes-bouncing {
