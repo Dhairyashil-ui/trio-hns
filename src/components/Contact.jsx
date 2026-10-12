@@ -61,12 +61,6 @@ export default function Contact() {
             <div className="contact-info-panel">
               <div className="contact-info-inner">
 
-                {/* Status Indicator */}
-                <div className="contact-status-badge">
-                  <span className="contact-status-beacon"></span>
-                  <span>Pune HQ &bull; Active Deployment Support</span>
-                </div>
-
                 <div className="contact-info-headline-wrap">
                   <h3 className="contact-info-title">Hospital Technology Division</h3>
                   <p className="contact-info-lead">
