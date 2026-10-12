@@ -189,11 +189,11 @@ a:hover {
    1. TOPBAR & HEADER (PURE BLACK CINEMATIC STAGE)
    -------------------------------------------------------------- */
 #topbar {
-  background: #000000;
+  background: #f8fafc;
   height: 38px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid #e2e8f0;
   font-size: 13px;
-  color: #94a3b8;
+  color: #475569;
   z-index: 1000;
 }
 
@@ -236,13 +236,13 @@ a:hover {
 
 /* Header Adaptive Color Transition */
 #header {
-  background: rgba(2, 18, 38, 0.88);
+  background: rgba(248, 250, 252, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   height: 72px;
   width: 100%;
-  border-bottom: 1px solid rgba(56, 189, 248, 0.14) !important;
-  box-shadow: 0 4px 24px rgba(2, 18, 38, 0.25) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.9) !important;
+  box-shadow: 0 2px 14px rgba(15, 23, 42, 0.04) !important;
   transition: background-color 2.8s cubic-bezier(0.16, 1, 0.3, 1), 
               box-shadow 2.8s cubic-bezier(0.16, 1, 0.3, 1), 
               border-color 2.8s cubic-bezier(0.16, 1, 0.3, 1);
@@ -275,7 +275,7 @@ a:hover {
   font-family: 'Google Sans', var(--font-primary);
   font-size: 14.5px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.88);
+  color: #334155;
   padding: 8px 16px;
   border-radius: var(--radius-pill);
   display: inline-flex;
@@ -292,8 +292,8 @@ a:hover {
 }
 
 .navbar a:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.08);
+  color: var(--google-blue);
+  background: rgba(26, 115, 232, 0.08);
 }
 
 .navbar a:hover .nav-chevron {
@@ -302,8 +302,8 @@ a:hover {
 }
 
 .navbar a.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--google-blue);
+  background: rgba(26, 115, 232, 0.12);
 }
 
 /* Scrolled Nav Link States */
@@ -338,15 +338,15 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.75);
+  color: #64748b;
   font-size: 15px;
   transition: color 2.5s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease, transform 0.2s ease;
   text-decoration: none;
 }
 
 .google-icon-link:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
+  color: var(--google-blue);
+  background: rgba(26, 115, 232, 0.08);
   transform: translateY(-1px);
 }
 
@@ -385,7 +385,7 @@ a:hover {
 }
 
 .mobile-nav-toggle {
-  color: #ffffff;
+  color: #0f172a;
   font-size: 26px;
   cursor: pointer;
   display: none;
@@ -398,14 +398,14 @@ a:hover {
     display: block;
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
-    background: linear-gradient(160deg, #021226 0%, #052447 50%, #093c68 100%);
+    background: linear-gradient(160deg, #f8fafc 0%, #edf2f7 50%, #e2e8f0 100%);
     padding: 70px 24px;
     z-index: 9999;
   }
 }
 
 /* --------------------------------------------------------------
-   2. HERO SECTION (ICY BLUE GRADIENT CINEMATIC STAGE)
+   2. HERO SECTION (SOFT SILVER-WHITE LUXURY EXECUTIVE STAGE)
    -------------------------------------------------------------- */
 .hero-stage {
   position: -webkit-sticky;
@@ -415,10 +415,10 @@ a:hover {
   height: 100vh;
   min-height: 100vh;
   background: 
-    radial-gradient(ellipse at 50% 12%, rgba(56, 189, 248, 0.28) 0%, rgba(14, 116, 144, 0.14) 40%, transparent 72%),
-    radial-gradient(circle at 16% 45%, rgba(2, 132, 199, 0.22) 0%, transparent 52%),
-    radial-gradient(circle at 84% 55%, rgba(14, 165, 233, 0.20) 0%, transparent 52%),
-    linear-gradient(160deg, #021429 0%, #052344 32%, #093761 68%, #031c36 100%);
+    radial-gradient(ellipse at 50% 15%, #ffffff 0%, rgba(248, 250, 252, 0.95) 35%, rgba(241, 245, 249, 0.85) 65%, #e2e8f0 100%),
+    radial-gradient(circle at 18% 42%, rgba(226, 232, 240, 0.65) 0%, transparent 55%),
+    radial-gradient(circle at 82% 58%, rgba(203, 213, 225, 0.5) 0%, transparent 55%),
+    linear-gradient(160deg, #f8fafc 0%, #edf2f7 35%, #e2e8f0 70%, #f1f5f9 100%);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -577,9 +577,9 @@ a:hover {
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.12;
-  color: #ffffff;
+  color: #0f172a;
   font-style: normal;
-  text-shadow: 0 4px 28px rgba(2, 18, 38, 0.95), 0 0 45px rgba(56, 189, 248, 0.4);
+  text-shadow: 0 2px 18px rgba(15, 23, 42, 0.07);
   transition: color 2.8s cubic-bezier(0.16, 1, 0.3, 1), text-shadow 2.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -632,11 +632,11 @@ a:hover {
   justify-content: center;
   padding: 16px 26px;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(186, 230, 253, 0.24);
+  background: #ffffff;
+  border: 1px solid rgba(226, 232, 240, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(2, 18, 38, 0.45), 0 0 20px rgba(56, 189, 248, 0.1);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.04);
   max-width: 480px;
   text-align: center;
   transition: background 2.8s cubic-bezier(0.16, 1, 0.3, 1),
@@ -655,9 +655,9 @@ a:hover {
 .hero-card-title {
   font-family: 'Google Sans', var(--font-primary);
   font-size: 15px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.35;
-  color: #ffffff;
+  color: #0f172a;
   letter-spacing: -0.01em;
   transition: color 2.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -667,7 +667,7 @@ a:hover {
   font-size: 13px;
   font-weight: 400;
   line-height: 1.45;
-  color: rgba(255, 255, 255, 0.65);
+  color: #475569;
   letter-spacing: 0.005em;
   transition: color 2.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -677,7 +677,7 @@ a:hover {
 .hero-stage.scrolled .hero-line-behind,
 .hero-stage.scrolled .hero-line-modern,
 .hero-stage.scrolled .hero-line-triohms {
-  color: #1e293b;
+  color: #0f172a;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
 }
 
@@ -688,7 +688,7 @@ a:hover {
 }
 
 .hero-stage.scrolled .hero-card-title {
-  color: #1e293b;
+  color: #0f172a;
 }
 
 .hero-stage.scrolled .hero-card-subtitle {
@@ -700,10 +700,10 @@ a:hover {
   display: inline-block;
   width: 3px;
   height: 0.8em;
-  background: #38bdf8;
+  background: #1a73e8;
   margin-left: 6px;
   vertical-align: middle;
-  box-shadow: 0 0 14px #38bdf8;
+  box-shadow: 0 0 12px rgba(26, 115, 232, 0.55);
   border-radius: 1px;
   animation: caretPulse 0.7s infinite;
 }
@@ -817,14 +817,14 @@ a:hover {
   font-weight: 400;
   line-height: 1.05;
   letter-spacing: -2px;
-  color: #ffffff;
+  color: #0f172a;
   margin-bottom: 34px;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.9);
+  text-shadow: 0 2px 20px rgba(15, 23, 42, 0.07);
   transition: color 0.95s cubic-bezier(0.25, 1, 0.4, 1) 0.12s, text-shadow 0.95s ease 0.12s;
 }
 
 .hero-stage.scrolled .hero-headline-gemini {
-  color: #1e293b;
+  color: #0f172a;
   text-shadow: 0 2px 14px rgba(0, 0, 0, 0.05);
 }
 

@@ -46,14 +46,14 @@ export default function DnaCanvas({ scrolled }) {
     const customSizes = new Float32Array(totalParticles);
     const phases = new Float32Array(totalParticles);
 
-    // UNIFORM PALETTES: Every mode has ONE uniform color for ALL particles at once!
+    // UNIFORM PALETTES: Rich vibrant tones designed for soft silver-white contrast
     const PALETTES = [
-      new THREE.Color('#38bdf8'), // 0: INITIAL: PURE SKY BLUE (All particles at once)
-      new THREE.Color('#a855f7'), // 1: Pure Electric Violet / Neon Purple
-      new THREE.Color('#10b981'), // 2: Pure Bio-Emerald Mint
-      new THREE.Color('#fbbf24'), // 3: Pure Radiant Sun Gold
-      new THREE.Color('#f43f5e'), // 4: Pure Neon Crimson Rose
-      new THREE.Color('#00f0ff'), // 5: Multi-Color Rainbow Hologram Mode
+      new THREE.Color('#1a73e8'), // 0: INITIAL: Google Medical Blue / Sapphire
+      new THREE.Color('#7c3aed'), // 1: Pure Electric Violet / Neon Purple
+      new THREE.Color('#059669'), // 2: Pure Bio-Emerald Mint
+      new THREE.Color('#d97706'), // 3: Pure Radiant Amber Gold
+      new THREE.Color('#e11d48'), // 4: Pure Crimson Rose
+      new THREE.Color('#0284c7'), // 5: Multi-Color Rainbow Hologram Mode
     ];
 
     const HELIX_HEIGHT = 140;       // Vertical span
@@ -232,7 +232,7 @@ export default function DnaCanvas({ scrolled }) {
       vertexColors: false,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending, // Maximum bio-luminescence & bloom against pure black
+      blending: THREE.NormalBlending, // Crisp visibility and rich color definition on soft silver-white background
       vertexShader: `
         attribute vec3 rainbowColor;
         attribute float customSize;
