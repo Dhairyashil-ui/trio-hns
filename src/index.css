@@ -2718,61 +2718,64 @@ a:hover {
    Designed to fit 100% in one screen with luxury black/graphite palette
    -------------------------------------------------------------- */
 .workflows-cinematic-section {
-  padding: clamp(68px, 7.8vh, 92px) 0 clamp(68px, 7.8vh, 92px) 0;
+  padding: clamp(48px, 5vh, 64px) 0 clamp(48px, 5vh, 64px) 0;
   background: #ffffff;
   position: relative;
   z-index: 10;
 }
 
-/* Left Stack: 6 Flow Navigation Cards */
+/* Left Stack: 6 Flow Navigation Cards - Single Consolidated Panel with NO GAP */
 .workflow-tabs-stack {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px -12px rgba(15, 23, 42, 0.07);
   height: 100%;
-  justify-content: space-between;
 }
 
 .workflow-tab-card {
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 15px;
-  padding: 13px 17px;
-  min-height: 68px;
+  border: none;
+  border-bottom: 1px solid #f1f5f9;
+  border-radius: 0;
+  padding: 12px 18px;
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 13px;
   cursor: pointer;
   user-select: none;
   outline: none;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background-color 0.18s ease, transform 0.18s ease;
   position: relative;
   box-shadow: none !important;
-  overflow: hidden;
+}
+
+.workflow-tab-card:last-child {
+  border-bottom: none;
 }
 
 .workflow-tab-active-bar {
   position: absolute;
   left: 0;
-  top: 10px;
-  bottom: 10px;
+  top: 8px;
+  bottom: 8px;
   width: 3.5px;
   border-radius: 0 4px 4px 0;
   background: transparent;
-  transition: all 0.22s ease;
+  transition: all 0.2s ease;
 }
 
 .workflow-tab-card:hover {
-  border-color: #0f172a;
   background: #fafbfc;
-  transform: translateX(4px);
 }
 
 .workflow-tab-card.active {
-  background: #ffffff;
-  border-color: #0f172a;
-  transform: translateX(5px);
-  box-shadow: 0 8px 24px -6px rgba(15, 23, 42, 0.08) !important;
+  background: #f8fafc;
 }
 
 .workflow-tab-card.active .workflow-tab-active-bar {
@@ -2780,8 +2783,8 @@ a:hover {
 }
 
 .workflow-tab-icon-box {
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 9px;
   border: 1px solid #e2e8f0;
   background: #f8fafc;
@@ -2789,7 +2792,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
+  font-size: 17px;
   flex-shrink: 0;
   transition: all 0.2s ease;
 }
@@ -2808,7 +2811,7 @@ a:hover {
 
 .workflow-tab-title {
   font-family: 'Google Sans', var(--font-heading), system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 650;
   color: #0f172a;
   line-height: 1.25;
@@ -2818,10 +2821,10 @@ a:hover {
 }
 
 .workflow-tab-sub {
-  font-size: 11.5px;
+  font-size: 11px;
   color: #64748b;
   line-height: 1.3;
-  margin-top: 2px;
+  margin-top: 1px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2857,9 +2860,9 @@ a:hover {
 .workflow-stage-card {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  border-radius: 22px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 16px 45px -12px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 10px 35px -12px rgba(15, 23, 42, 0.07);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -2976,13 +2979,12 @@ a:hover {
 /* Big Architecture Image Stage */
 .workflow-visual-stage {
   padding: 24px 20px;
-  background: linear-gradient(180deg, #fbfcfe 0%, #f8fafc 100%);
-  border-top: 1px solid #f8fafc;
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 1;
-  min-height: 420px;
+  min-height: 400px;
 }
 
 .workflow-visual-stage-inner {
@@ -2996,11 +2998,11 @@ a:hover {
 }
 
 .workflow-visual-img {
-  max-height: 440px;
+  max-height: 420px;
   width: 100%;
-  max-width: 660px;
+  max-width: 680px;
   object-fit: contain;
-  filter: drop-shadow(0 14px 34px rgba(15, 23, 42, 0.08));
+  filter: drop-shadow(0 10px 30px rgba(15, 23, 42, 0.08));
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -3033,7 +3035,27 @@ a:hover {
   transform: translateY(0);
 }
 
-
+@media (max-width: 991px) {
+  .workflow-tabs-stack {
+    height: auto;
+    margin-bottom: 20px;
+  }
+  .workflow-tab-card {
+    flex: initial;
+    min-height: 54px;
+    padding: 10px 14px;
+  }
+  .workflow-stage-card {
+    height: auto;
+  }
+  .workflow-visual-stage {
+    min-height: 280px;
+    padding: 16px;
+  }
+  .workflow-visual-img {
+    max-height: 320px;
+  }
+}
 
 /* Fullscreen Lightbox Modal */
 .workflow-lightbox-backdrop {

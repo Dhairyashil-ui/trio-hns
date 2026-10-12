@@ -92,38 +92,6 @@ export default function Workflows({ onOpenModal }) {
           <div className="col-lg-8 col-md-7">
             <div className="workflow-stage-card">
               
-              {/* Professional Executive Top Header Bar */}
-              <div className="workflow-card-top-bar">
-                <div className="workflow-heading-wrap">
-                  <div className="d-flex align-items-center gap-2 mb-1">
-                    <span className="workflow-counter-badge">0{activeIndex + 1} / 0{workflowsData.length}</span>
-                    <span className="workflow-blueprint-badge">Architecture Blueprint</span>
-                  </div>
-                  <h3 className="workflow-card-heading">{activeWorkflow.title}</h3>
-                  <p className="workflow-card-desc">{activeWorkflow.description}</p>
-                </div>
-                
-                <div className="workflow-actions-wrap">
-                  <button
-                    type="button"
-                    className="workflow-zoom-action-btn"
-                    onClick={() => setIsLightboxOpen(true)}
-                    title="Expand Fullscreen"
-                    aria-label="Expand Diagram Fullscreen"
-                  >
-                    <i className="bi bi-arrows-fullscreen"></i>
-                  </button>
-                  <button
-                    type="button"
-                    className="workflow-walkthrough-btn"
-                    onClick={onOpenModal}
-                  >
-                    <span>Schedule Walkthrough</span>
-                    <i className="bi bi-arrow-right ms-2"></i>
-                  </button>
-                </div>
-              </div>
-
               {/* Big, High-Definition Architecture Image Stage */}
               <div className="workflow-visual-stage">
                 <div 
