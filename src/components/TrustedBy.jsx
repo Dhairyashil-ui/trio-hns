@@ -274,7 +274,7 @@ export default function TrustedBy() {
     // Camera with realistic depth perspective, centered on carousel
     const isMobile = width < 768;
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
-    camera.position.set(0, 0, isMobile ? 8.6 : 7.6);
+    camera.position.set(0, 0, isMobile ? 8.2 : 7.2);
     camera.lookAt(0, 0, 0);
 
     // WebGL Renderer
@@ -287,17 +287,17 @@ export default function TrustedBy() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-    // 3D Cylindrical Ring Setup - Centered symmetrically below top heading
+    // 3D Cylindrical Ring Setup - Elevated slightly up towards the text
     const ringGroup = new THREE.Group();
-    ringGroup.position.set(0, 0, 0);
+    ringGroup.position.set(0, 0.26, 0);
     scene.add(ringGroup);
 
-    // Geometry & Radius tuned to guarantee ZERO overlap between adjacent cards
-    // 12 cards, 30 deg apart. At radius 4.35, chord distance between centers is 2.25 units.
-    // Card width is 1.62 units. Thus, gap between cards is 2.25 - 1.62 = 0.63 units (generous, crisp separation).
-    const radius = 4.35;
+    // Geometry & Radius tuned: cards sit slightly near to each other with a tight, cohesive gap
+    // 12 cards, 30 deg apart. At radius 3.95, chord distance is 2.05 units.
+    // Card width is 1.68 units. Gap is ~0.32 units (clean, elegant separation without overlap).
+    const radius = 3.95;
     const count = PARTNERS.length;
-    const cardGeometry = new THREE.PlaneGeometry(1.62, 0.98);
+    const cardGeometry = new THREE.PlaneGeometry(1.68, 1.02);
     const texturesToDispose = [];
     const materialsToDispose = [];
     const meshes = [];
@@ -416,8 +416,8 @@ export default function TrustedBy() {
           const scaleVal = Math.max(0, 1 - Math.exp(-4.2 * elapsed) * Math.cos(9.6 * elapsed));
           ringGroup.scale.set(scaleVal, scaleVal, scaleVal);
 
-          // Height spring bounce
-          const yOffset = -Math.exp(-4.2 * elapsed) * Math.sin(8.0 * elapsed) * 0.3;
+          // Height spring bounce elevated slightly up towards text
+          const yOffset = 0.26 - Math.exp(-4.2 * elapsed) * Math.sin(8.0 * elapsed) * 0.3;
           ringGroup.position.y = yOffset;
           ringGroup.position.x = 0;
 
@@ -426,7 +426,7 @@ export default function TrustedBy() {
           rotationY += speedKick;
         } else {
           ringGroup.scale.set(1, 1, 1);
-          ringGroup.position.y = 0;
+          ringGroup.position.y = 0.26;
           ringGroup.position.x = 0;
         }
       }
@@ -454,10 +454,10 @@ export default function TrustedBy() {
         // Normalized depth from camera (-radius to +radius)
         const depthFactor = (worldPos.z - (-radius)) / (2 * radius);
         
-        // Center Card Prominence (gentle 1.10x scaling at front center)
+        // Center Card Prominence (gentle 1.08x scaling at front center)
         const frontness = Math.max(0, worldPos.z / radius);
         const centerProminence = Math.pow(frontness, 3.0);
-        const cardScale = 1.0 + 0.10 * centerProminence;
+        const cardScale = 1.0 + 0.08 * centerProminence;
         mesh.scale.set(cardScale, cardScale, 1);
 
         // Crisp, clearly visible cards: front and sides stay fully opaque (1.0).
@@ -484,10 +484,10 @@ export default function TrustedBy() {
       const newHeight = container.clientHeight || 440;
       const newIsMobile = newWidth < 768;
 
-      ringGroup.position.set(0, 0, 0);
+      ringGroup.position.set(0, 0.26, 0);
 
       camera.aspect = newWidth / newHeight;
-      camera.position.z = newIsMobile ? 8.6 : 7.6;
+      camera.position.z = newIsMobile ? 8.2 : 7.2;
       camera.updateProjectionMatrix();
 
       renderer.setSize(newWidth, newHeight);

@@ -4699,6 +4699,10 @@ a:hover {
   position: relative;
 }
 
+.trusted-by-cinematic-section .google-modules-header {
+  margin-bottom: clamp(8px, 1.2vh, 16px);
+}
+
 /* Stage wrapper containing 3D rotating wheel centered below top heading */
 .trusted-carousel-stage-wrapper {
   position: relative;
@@ -4710,8 +4714,8 @@ a:hover {
 /* 3D Rotating Round Carousel Stage (Spring-Bouncing Entrance) */
 .trusted-3d-stage {
   width: 100%;
-  height: 440px;
-  margin: 0 auto;
+  height: 410px;
+  margin: -8px auto 0 auto;
   position: relative;
   user-select: none;
   touch-action: pan-y;
