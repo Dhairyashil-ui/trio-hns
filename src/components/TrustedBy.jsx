@@ -98,7 +98,7 @@ function drawRoundedRect(ctx, x, y, width, height, radius) {
   ctx.lineTo(x + radius, y + height);
   ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
   ctx.lineTo(x, y + radius);
-  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.quadraticCurveTo(x, y + radius, x + radius, y);
   ctx.closePath();
 }
 
@@ -128,27 +128,27 @@ function createCardTexture(partner) {
     ctx.shadowBlur = 28;
     ctx.shadowOffsetY = 12;
     ctx.fillStyle = '#ffffff';
-    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
+    drawRoundedRect(ctx, 16, 16, 768, 448, 28);
     ctx.fill();
     ctx.restore();
 
     // 2. Translucent Crystalline Liquid-Glass Card Fill (Crisp cool-white)
     const bgGrad = ctx.createLinearGradient(16, 16, 784, 464);
-    bgGrad.addColorStop(0, 'rgba(255, 255, 255, 0.98)');
-    bgGrad.addColorStop(0.45, 'rgba(252, 254, 255, 0.95)');
-    bgGrad.addColorStop(1, 'rgba(246, 250, 255, 0.97)');
+    bgGrad.addColorStop(0, 'rgba(255, 255, 255, 0.99)');
+    bgGrad.addColorStop(0.45, 'rgba(252, 254, 255, 0.96)');
+    bgGrad.addColorStop(1, 'rgba(246, 250, 255, 0.98)');
     ctx.fillStyle = bgGrad;
-    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
+    drawRoundedRect(ctx, 16, 16, 768, 448, 28);
     ctx.fill();
 
     // 3. Subtle Specular Glass Sheen Reflection (Top highlight without excessive glow)
     ctx.save();
-    const sheenGrad = ctx.createLinearGradient(16, 16, 16, 220);
-    sheenGrad.addColorStop(0, 'rgba(255, 255, 255, 0.65)');
-    sheenGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.15)');
+    const sheenGrad = ctx.createLinearGradient(16, 16, 16, 210);
+    sheenGrad.addColorStop(0, 'rgba(255, 255, 255, 0.70)');
+    sheenGrad.addColorStop(0.5, 'rgba(255, 255, 255, 0.18)');
     sheenGrad.addColorStop(1, 'rgba(255, 255, 255, 0)');
     ctx.fillStyle = sheenGrad;
-    drawRoundedRect(ctx, 16, 16, 768, 200, 30);
+    drawRoundedRect(ctx, 16, 16, 768, 190, 28);
     ctx.fill();
     ctx.restore();
 
@@ -158,8 +158,8 @@ function createCardTexture(partner) {
     borderGrad.addColorStop(0.5, 'rgba(241, 245, 249, 0.85)');
     borderGrad.addColorStop(1, 'rgba(203, 213, 225, 0.9)');
     ctx.strokeStyle = borderGrad;
-    ctx.lineWidth = 1.4;
-    drawRoundedRect(ctx, 16, 16, 768, 448, 30);
+    ctx.lineWidth = 1.5;
+    drawRoundedRect(ctx, 16, 16, 768, 448, 28);
     ctx.stroke();
 
     // 5. Logo Rendering Area (Centered, Sharp, True Vibrant Colors, Correctly Proportioned)
@@ -208,7 +208,7 @@ function createCardTexture(partner) {
       const barW = 16;
       const barH = 56;
       ctx.fillRect(cx - barW / 2, cy - barH / 2, barW, barH);
-      ctx.fillRect(cx - barH / 2, cy - barW / 2, barH, barW);
+      ctx.fillRect(cx - barH / 2, cy - barH / 2, barH, barW);
       ctx.restore();
     }
 
@@ -253,6 +253,8 @@ function createCardTexture(partner) {
 export default function TrustedBy() {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
+  const sectionRef = useRef(null);
+  const [animationPhase, setAnimationPhase] = useState('idle'); // 'idle' | 'bouncing' | 'loaded'
 
   useEffect(() => {
     const container = containerRef.current;
@@ -269,10 +271,10 @@ export default function TrustedBy() {
     const width = container.clientWidth || window.innerWidth;
     const height = container.clientHeight || 440;
 
-    // Camera with realistic depth perspective (compact, slightly smaller scale)
+    // Camera with realistic depth perspective, centered on carousel
     const isMobile = width < 768;
-    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, isMobile ? 7.6 : 6.6);
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    camera.position.set(0, 0, isMobile ? 8.6 : 7.6);
     camera.lookAt(0, 0, 0);
 
     // WebGL Renderer
@@ -285,15 +287,17 @@ export default function TrustedBy() {
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 
-    // 3D Cylindrical Ring Setup (positioned slightly right on desktop to avoid overlap with TRUSTED BY)
-    let targetXOffset = isMobile ? 0 : 1.15;
+    // 3D Cylindrical Ring Setup - Centered symmetrically below top heading
     const ringGroup = new THREE.Group();
-    ringGroup.position.set(targetXOffset, 0.22, 0);
+    ringGroup.position.set(0, 0, 0);
     scene.add(ringGroup);
 
-    const radius = 3.65;
+    // Geometry & Radius tuned to guarantee ZERO overlap between adjacent cards
+    // 12 cards, 30 deg apart. At radius 4.35, chord distance between centers is 2.25 units.
+    // Card width is 1.62 units. Thus, gap between cards is 2.25 - 1.62 = 0.63 units (generous, crisp separation).
+    const radius = 4.35;
     const count = PARTNERS.length;
-    const cardGeometry = new THREE.PlaneGeometry(2.0, 1.2);
+    const cardGeometry = new THREE.PlaneGeometry(1.62, 0.98);
     const texturesToDispose = [];
     const materialsToDispose = [];
     const meshes = [];
@@ -322,7 +326,7 @@ export default function TrustedBy() {
 
     // Rotation & Drag Physics State
     let rotationY = 0;
-    const baseSpeed = 0.0024;
+    const baseSpeed = 0.0022;
     let dragVelocity = 0;
     let isDragging = false;
     let pointerStartX = 0;
@@ -344,7 +348,7 @@ export default function TrustedBy() {
       const deltaX = currentX - previousPointerX;
       previousPointerX = currentX;
 
-      const sensitivity = isMobile ? 0.006 : 0.0045;
+      const sensitivity = isMobile ? 0.0055 : 0.004;
       rotationY += deltaX * sensitivity;
       dragVelocity = deltaX * sensitivity;
     };
@@ -402,28 +406,28 @@ export default function TrustedBy() {
 
       if (!isVisibleOnScreen) return;
 
-      // Handle spring bouncing entrance for round 3D cylindrical boxes
+      // Handle spring bouncing entrance for round 3D cylindrical carousel
       if (!isBouncing) {
         ringGroup.scale.set(0.0001, 0.0001, 0.0001);
       } else {
         const elapsed = (performance.now() - bounceStartTime) / 1000;
         if (elapsed < 1.6) {
-          // Damped harmonic spring: shoots to ~1.16, springs back to ~0.95, settles at 1.0
+          // Damped harmonic spring: shoots to ~1.12, settles at 1.0
           const scaleVal = Math.max(0, 1 - Math.exp(-4.2 * elapsed) * Math.cos(9.6 * elapsed));
           ringGroup.scale.set(scaleVal, scaleVal, scaleVal);
 
           // Height spring bounce
-          const yOffset = 0.22 - Math.exp(-4.2 * elapsed) * Math.sin(8.0 * elapsed) * 0.35;
+          const yOffset = -Math.exp(-4.2 * elapsed) * Math.sin(8.0 * elapsed) * 0.3;
           ringGroup.position.y = yOffset;
-          ringGroup.position.x = targetXOffset;
+          ringGroup.position.x = 0;
 
           // Initial rotational impulse on arrival
-          const speedKick = Math.exp(-3.2 * elapsed) * 0.024;
+          const speedKick = Math.exp(-3.2 * elapsed) * 0.02;
           rotationY += speedKick;
         } else {
           ringGroup.scale.set(1, 1, 1);
-          ringGroup.position.y = 0.22;
-          ringGroup.position.x = targetXOffset;
+          ringGroup.position.y = 0;
+          ringGroup.position.x = 0;
         }
       }
 
@@ -433,7 +437,7 @@ export default function TrustedBy() {
           rotationY += dragVelocity;
           dragVelocity *= 0.94; // Smooth inertial decay
         } else if (autoRotate) {
-          // Slow continuous rotation, smoothly decelerates on hover
+          // Slow continuous rotation, decelerates smoothly on hover
           const currentSpeed = isHovered ? baseSpeed * 0.35 : baseSpeed;
           rotationY += currentSpeed;
         }
@@ -444,27 +448,27 @@ export default function TrustedBy() {
       const time = performance.now() * 0.001;
       meshes.forEach((mesh, idx) => {
         // Subtle weightless organic floating wave
-        mesh.position.y = Math.sin(time * 1.4 + idx * 0.52) * 0.045;
+        mesh.position.y = Math.sin(time * 1.4 + idx * 0.52) * 0.04;
 
         mesh.getWorldPosition(worldPos);
         // Normalized depth from camera (-radius to +radius)
         const depthFactor = (worldPos.z - (-radius)) / (2 * radius);
         
-        // Center Card Prominence (smooth 1.14x scaling at front center)
+        // Center Card Prominence (gentle 1.10x scaling at front center)
         const frontness = Math.max(0, worldPos.z / radius);
-        const centerProminence = Math.pow(frontness, 2.8);
-        const cardScale = 1.0 + 0.14 * centerProminence;
+        const centerProminence = Math.pow(frontness, 3.0);
+        const cardScale = 1.0 + 0.10 * centerProminence;
         mesh.scale.set(cardScale, cardScale, 1);
 
         // Crisp, clearly visible cards: front and sides stay fully opaque (1.0).
-        // Only cards cycling through the deep background fade out gently.
+        // Only cards cycling through the deep background fade out gently so they don't visually clash.
         let opacity = 1.0;
-        if (depthFactor < 0.32) {
-          opacity = Math.max(0, depthFactor / 0.32);
+        if (depthFactor < 0.38) {
+          opacity = Math.max(0, (depthFactor - 0.12) / 0.26);
         }
         mesh.material.opacity = opacity;
 
-        // True vibrant original hospital colors (no washed-out graying or tone dimming)
+        // True vibrant original hospital colors (no tone dimming)
         mesh.material.color.setRGB(1, 1, 1);
       });
 
@@ -480,11 +484,10 @@ export default function TrustedBy() {
       const newHeight = container.clientHeight || 440;
       const newIsMobile = newWidth < 768;
 
-      targetXOffset = newIsMobile ? 0 : 1.15;
-      ringGroup.position.x = targetXOffset;
+      ringGroup.position.set(0, 0, 0);
 
       camera.aspect = newWidth / newHeight;
-      camera.position.z = newIsMobile ? 7.6 : 6.6;
+      camera.position.z = newIsMobile ? 8.6 : 7.6;
       camera.updateProjectionMatrix();
 
       renderer.setSize(newWidth, newHeight);
@@ -518,54 +521,31 @@ export default function TrustedBy() {
     };
   }, []);
 
-  // Section Scroll-Trigger & Choreographed Sequence
-  const sectionRef = useRef(null);
-  const [animationPhase, setAnimationPhase] = useState('idle'); // 'idle' | 'text-in' | 'boxes-bouncing' | 'all-loaded'
-  const [mouseTilt, setMouseTilt] = useState({ x: 0, y: 0 });
-
+  // Section Scroll-Trigger for Animated Entrance
   useEffect(() => {
     if (!sectionRef.current) return;
 
     const scrollObserver = new IntersectionObserver(
       ([entry]) => {
-        // Trigger sequence only when user scrolls down till Trusted By
         if (entry.isIntersecting) {
-          // Phase 1: Text slides in from left in slow motion
-          setAnimationPhase('text-in');
+          setAnimationPhase('bouncing');
+          if (window.__triggerTrustedBounce) {
+            window.__triggerTrustedBounce();
+          }
 
-          // Phase 2: Right after in slow motion, round animation boxes bounce in!
           setTimeout(() => {
-            setAnimationPhase('boxes-bouncing');
-            if (window.__triggerTrustedBounce) {
-              window.__triggerTrustedBounce();
-            }
-          }, 620);
-
-          // Phase 3: Right after, load below all
-          setTimeout(() => {
-            setAnimationPhase('all-loaded');
-          }, 1750);
+            setAnimationPhase('loaded');
+          }, 1500);
 
           scrollObserver.disconnect();
         }
       },
-      { threshold: 0.16 }
+      { threshold: 0.15 }
     );
 
     scrollObserver.observe(sectionRef.current);
     return () => scrollObserver.disconnect();
   }, []);
-
-  const handleHeaderMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
-    setMouseTilt({ x, y });
-  };
-
-  const handleHeaderMouseLeave = () => {
-    setMouseTilt({ x: 0, y: 0 });
-  };
 
   return (
     <section 
@@ -577,29 +557,21 @@ export default function TrustedBy() {
       <div className="trusted-container-miniscreen">
 
         {/* =========================================================
-            PARALLEL STAGE: "TRUSTED BY" AT LEFT CORNER PARALLEL TO TOP OF ROTATING WHEEL
+            CLEAN TOP HEADING: EXACT SAME SIZE AS HOSPITAL MODULES TEXT
             ========================================================= */}
-        <div className="trusted-wheel-stage-wrapper">
+        <div className="google-modules-header text-center">
+          <h2 className="section-title-google">
+            Trusted <span className="text-gradient-gemini">By</span>
+          </h2>
+        </div>
 
-          {/* Left Corner: "TRUSTED BY" (Single line, parallel to top of rotating wheel) */}
-          <div 
-            className={`trusted-corner-heading ${animationPhase !== 'idle' ? 'text-in' : ''}`}
-            onMouseMove={handleHeaderMouseMove}
-            onMouseLeave={handleHeaderMouseLeave}
-            style={animationPhase !== 'idle' ? {
-              transform: `perspective(900px) rotateY(${mouseTilt.x * 6}deg) rotateX(${-mouseTilt.y * 4}deg)`
-            } : undefined}
-          >
-            <h2 className="section-title-google trusted-corner-title">
-              <span className="kinetic-word">TRUSTED</span>{' '}
-              <span className="trusted-by-accent kinetic-word">BY</span>
-            </h2>
-          </div>
-
-          {/* 3D Round Rotating Boxes (Bouncing style) */}
+        {/* =========================================================
+            3D ROUND ROTATING BOXES (CENTERED DIRECTLY BELOW TOP HEADING)
+            ========================================================= */}
+        <div className="trusted-carousel-stage-wrapper">
           <div 
             ref={containerRef} 
-            className={`trusted-3d-stage trusted-stage-parallel ${animationPhase === 'boxes-bouncing' || animationPhase === 'all-loaded' ? 'boxes-bouncing' : ''}`}
+            className={`trusted-3d-stage ${animationPhase === 'bouncing' || animationPhase === 'loaded' ? 'boxes-bouncing' : ''}`}
           >
             <div className="trusted-stage-vignette left" aria-hidden="true"></div>
             <div className="trusted-stage-vignette right" aria-hidden="true"></div>
@@ -609,7 +581,6 @@ export default function TrustedBy() {
               aria-label="Interactive 3D cylindrical carousel of company logos"
             />
           </div>
-
         </div>
 
         <ul className="visually-hidden">
