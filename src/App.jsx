@@ -2,21 +2,15 @@ import React, { useState, useEffect } from 'react';
 import Lenis from 'lenis';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Counts from './components/Counts';
-import TrustedBy from './components/TrustedBy';
-import Modules from './components/Modules';
-import AppointmentSection from './components/AppointmentSection';
-import Workflows from './components/Workflows';
-import Faq from './components/Faq';
-import Testimonials from './components/Testimonials';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import TiltedPipeShowcase from './components/TiltedPipeShowcase';
 import DemoModal from './components/DemoModal';
-import WhatsAppFloat from './components/WhatsAppFloat';
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [analyzedRepo, setAnalyzedRepo] = useState('facebook/react');
+  const [hasExplored, setHasExplored] = useState(false);
+  const [isZoomedOut, setIsZoomedOut] = useState(false);
 
   useEffect(() => {
     // 1. Initialize Lenis Buttery Smooth Momentum Scrolling
@@ -42,8 +36,8 @@ export default function App() {
 
     // 2. Adaptive Scroll Transition Handling
     const handleScroll = () => {
-      const intelligenceEl = document.querySelector('.hero-line-intelligence') || document.querySelector('.hero-left-mid-block');
-      const whiteSectionEl = document.querySelector('.stats-strip-white') || document.getElementById('counts');
+      const intelligenceEl = document.querySelector('.hero-line-intelligence') || document.querySelector('.hero-headline-centered');
+      const whiteSectionEl = document.querySelector('.stats-strip-white') || document.getElementById('downside-stage');
 
       if (intelligenceEl && whiteSectionEl) {
         const intelRect = intelligenceEl.getBoundingClientRect();
@@ -57,7 +51,7 @@ export default function App() {
           }
         });
       } else {
-        const threshold = window.innerHeight * 0.5 + 30;
+        const threshold = window.innerHeight * 0.45;
         setScrolled(window.scrollY >= threshold);
       }
     };
@@ -74,65 +68,137 @@ export default function App() {
     };
   }, []);
 
+  // Lock page scrolling when user enters app first until explore is clicked
   useEffect(() => {
-    if (window.__lenis) {
+    if (!hasExplored) {
+      document.body.classList.add('initial-locked');
+      document.documentElement.classList.add('initial-locked');
+      if (window.__lenis) {
+        window.__lenis.stop();
+      }
+    } else {
+      document.body.classList.remove('initial-locked');
+      document.documentElement.classList.remove('initial-locked');
+      if (window.__lenis && !isModalOpen) {
+        window.__lenis.start();
+      }
+    }
+    return () => {
+      document.body.classList.remove('initial-locked');
+      document.documentElement.classList.remove('initial-locked');
+    };
+  }, [hasExplored, isModalOpen]);
+
+  useEffect(() => {
+    if (window.__lenis && hasExplored) {
       if (isModalOpen) {
         window.__lenis.stop();
       } else {
         window.__lenis.start();
       }
     }
-  }, [isModalOpen]);
+  }, [isModalOpen, hasExplored]);
+
+  // Instantly scroll downside until the white background reaches the top header,
+  // bringing the 4 separate 3D boxes directly into the middle of the page.
+  const handleCompleteAnalysis = (repoName) => {
+    if (repoName) {
+      setAnalyzedRepo(repoName);
+    }
+    setHasExplored(true);
+
+    // 1. Immediately unlock scrolling & force reflow
+    document.body.classList.remove('initial-locked');
+    document.documentElement.classList.remove('initial-locked');
+    void document.body.offsetHeight;
+
+    if (window.__lenis) {
+      window.__lenis.start();
+      window.__lenis.resize();
+    }
+
+    // 2. Perform smooth auto-scroll to the 3D showcase stage
+    const performAutoScroll = () => {
+      const downsideStage = document.getElementById('downside-stage');
+      const headerEl = document.getElementById('header');
+      const headerHeight = headerEl ? headerEl.offsetHeight : 65;
+
+      let targetScrollY = 0;
+      if (downsideStage) {
+        const stageTop = downsideStage.getBoundingClientRect().top + window.pageYOffset;
+        targetScrollY = Math.max(0, stageTop - headerHeight);
+      } else {
+        const heroEl = document.getElementById('hero');
+        const heroHeight = heroEl ? heroEl.offsetHeight : window.innerHeight;
+        targetScrollY = Math.max(0, heroHeight - headerHeight);
+      }
+
+      if (window.__lenis) {
+        window.__lenis.start();
+        window.__lenis.resize();
+        window.__lenis.scrollTo(targetScrollY, {
+          duration: 1.15,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        });
+      }
+
+      window.scrollTo({
+        top: targetScrollY,
+        behavior: 'smooth',
+      });
+    };
+
+    // Execute immediately, on next animation frame, and after DOM paint
+    performAutoScroll();
+    requestAnimationFrame(() => {
+      if (window.__lenis) {
+        window.__lenis.resize();
+      }
+      performAutoScroll();
+    });
+    setTimeout(performAutoScroll, 60);
+    setTimeout(performAutoScroll, 180);
+  };
 
   return (
     <div className="trio-app-root">
-      {/* 1. Header (Google Header, adaptive scroll) */}
-      <Navbar scrolled={scrolled} onOpenModal={() => setIsModalOpen(true)} />
+      {/* 1. Header (Adaptive scroll transition) */}
+      <Navbar scrolled={scrolled} />
       
       <main id="main">
-        {/* Dark Hero Stage with animated white cover */}
-        <Hero scrolled={scrolled} onOpenModal={() => setIsModalOpen(true)} />
+        {/* Hero Stage with animated white cover & smooth transitions */}
+        <Hero 
+          scrolled={scrolled} 
+          onOpenModal={() => setIsModalOpen(true)}
+          onSelectRepo={(r) => setAnalyzedRepo(r)}
+          onCompleteAnalysis={handleCompleteAnalysis}
+        />
 
         {/* =========================================================
-            CLEAN WHITE GOOGLE CANVAS (BELOW HERO BOUNDARY)
+            3D TILTED PIPE SHOWCASE: 4 ZOOMOUT OPTIONS
+            1. Explore Timeline
+            2. Explore Contributor
+            3. Explore Code
+            4. GitStory AI
+            Downside page covers half "the intelligence..." behind
             ========================================================= */}
-        
-        {/* Live Metrics Strip */}
-        <Counts />
-
-        {/* Cinematic 3D Floating Carousel */}
-        <TrustedBy />
-
-        {/* 18 Hospital Modules - Google Minimalist Catalog */}
-        <Modules onOpenModal={() => setIsModalOpen(true)} />
-
-        {/* Interactive HIMS Workflows */}
-        <Workflows onOpenModal={() => setIsModalOpen(true)} />
-
-        {/* Inline Appointment Booking - Google Material Form */}
-        <AppointmentSection />
-
-        {/* Doctor Testimonials - Google Stories */}
-        <Testimonials />
-
-        {/* Frequently Asked Questions */}
-        <Faq />
-
-        {/* Contact & Headquarters */}
-        <Contact />
+        <section 
+          id="downside-stage" 
+          className="stats-strip-white downside-showcase-stage"
+        >
+          <TiltedPipeShowcase 
+            repo={analyzedRepo} 
+            isZoomedOut={isZoomedOut}
+            onOpenModal={() => setIsModalOpen(true)}
+          />
+        </section>
       </main>
-
-      {/* Global Clean Footer */}
-      <Footer onOpenModal={() => setIsModalOpen(true)} />
 
       {/* Interactive Demo Modal Dialog */}
       <DemoModal 
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
-
-      {/* Floating WhatsApp Action Button */}
-      <WhatsAppFloat />
     </div>
   );
 }

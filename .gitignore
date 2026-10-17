@@ -31,3 +31,10 @@ lerna-debug.log*
 *.sln
 *.sw?
 .DS_Store
+
+# Vercel
+.vercel/
+
+# Server temporary files and data
+server/data/*.tmp.*
+*.tmp.*

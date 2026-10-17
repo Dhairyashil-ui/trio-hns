@@ -1,12 +1,13 @@
 {
-  "name": "trio-hospital-management-system",
+  "name": "gitstory-ai",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "node ./node_modules/vite/bin/vite.js build",
-    "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/repoValidation.test.mjs && node tests/collaboratorAnalytics.test.mjs && node tests/coChangeAnalytics.test.mjs"
   },
   "allowScripts": {
     "esbuild": true
